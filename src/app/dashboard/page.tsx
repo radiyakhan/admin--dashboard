@@ -66,7 +66,7 @@ const Dashboard = () => {
           </h3>
           {products.length > 0 ? (
             <ul className="space-y-4">
-              {products.map((product) => (
+              {products.map((product : any) => (
                 <li key={product._id} className="flex justify-between items-center border-b pb-2">
                   <div className="flex items-center gap-4">
                     <img
