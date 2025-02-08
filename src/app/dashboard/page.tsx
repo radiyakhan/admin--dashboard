@@ -4,8 +4,19 @@ import { useEffect, useState } from "react";
 import Chart from "@/components/Chart";
 import { client } from "../../lib/client";
 
+// Define Product Type
+interface Product {
+  _id: string;
+  title: string;
+  productImage: string;
+  price: number;
+  tags?: string[];
+  discountPercentage: number;
+  isNew: boolean;
+}
+
 const Dashboard = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   // Fetch only 10 latest stock products from Sanity
   useEffect(() => {
@@ -21,7 +32,7 @@ const Dashboard = () => {
       }`;
 
       try {
-        const data = await client.fetch(query);
+        const data: Product[] = await client.fetch(query);
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -66,7 +77,7 @@ const Dashboard = () => {
           </h3>
           {products.length > 0 ? (
             <ul className="space-y-4">
-              {products.map((product : any) => (
+              {products.map((product) => (
                 <li key={product._id} className="flex justify-between items-center border-b pb-2">
                   <div className="flex items-center gap-4">
                     <img
